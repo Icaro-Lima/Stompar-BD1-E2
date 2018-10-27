@@ -1,0 +1,37 @@
+CREATE TABLE laboratorio (
+    cod_lab INT,
+    nome VARCHAR(30),
+    local VARCHAR(15),
+    
+    PRIMARY KEY (cod_lab)
+);
+
+CREATE TABLE recurso (
+    codigo INT,
+    descricao VARCHAR(100),
+    laboratorio INT,
+    
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (laboratorio) REFERENCES laboratorio(cod_lab)
+);
+
+CREATE TABLE projeto (
+    cod_proj INT,
+    orcamento NUMERIC(10, 2),
+    titulo VARCHAR(15),
+    descricao VARCHAR(100),
+    dt_inicio DATE,
+    dt_fim DATE,
+    
+    PRIMARY KEY (cod_proj)
+);
+
+CREATE TABLE patente (
+    codigo INT,
+    num_reg INT,
+    descricao VARCHAR(100),
+    projeto INT,
+    
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (projeto) REFERENCES projeto (cod_proj)
+);

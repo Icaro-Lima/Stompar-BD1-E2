@@ -1,0 +1,4 @@
+DROP TABLE patente;
+DROP TABLE projeto;
+DROP TABLE recurso;
+DROP TABLE laboratorio;
