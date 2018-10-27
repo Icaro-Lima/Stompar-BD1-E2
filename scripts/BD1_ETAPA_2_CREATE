@@ -1,3 +1,35 @@
+CREATE TABLE departamento (
+    codigo INT,
+    endereco VARCHAR(150),
+    nome VARCHAR(30)
+    telefone VARCHAR(14)
+
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone)
+)
+
+CREATE TABLE telefone (
+    num_telefone VARCHAR(14)
+
+    PRIMARY KEY (num_telefone)
+)
+
+CREATE TABLE professor (
+    matricula INT,
+    nome VARCHAR(30),
+    dt_nasc DATE,
+    titulacao VARCHAR(150)
+
+    PRIMARY KEY (matricula)
+)
+
+CREATE TABLE aluno (
+    matricula INT,
+    nome VARCHAR(30),
+    dt_nasc DATE,
+    nivel VARCHAR(150)
+)
+
 CREATE TABLE laboratorio (
     cod_lab INT,
     nome VARCHAR(30),
