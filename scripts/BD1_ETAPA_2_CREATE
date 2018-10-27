@@ -2,17 +2,19 @@ CREATE TABLE departamento (
     codigo INT,
     endereco VARCHAR(150),
     nome VARCHAR(30)
-    telefone VARCHAR(14)
+    telefone VARCHAR(14),
+    gerente INT,
 
     PRIMARY KEY (codigo),
-    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone)
-)
+    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone),
+    FOREIGN KEY (gerente) REFERENCES matricula(professor)
+);
 
 CREATE TABLE telefone (
     num_telefone VARCHAR(14)
 
     PRIMARY KEY (num_telefone)
-)
+);
 
 CREATE TABLE professor (
     matricula INT,
@@ -21,14 +23,14 @@ CREATE TABLE professor (
     titulacao VARCHAR(150)
 
     PRIMARY KEY (matricula)
-)
+);
 
 CREATE TABLE aluno (
     matricula INT,
     nome VARCHAR(30),
     dt_nasc DATE,
     nivel VARCHAR(150)
-)
+);
 
 CREATE TABLE laboratorio (
     cod_lab INT,
@@ -67,3 +69,16 @@ CREATE TABLE patente (
     PRIMARY KEY (codigo),
     FOREIGN KEY (projeto) REFERENCES projeto (cod_proj)
 );
+
+CREATE TABLE publicacao (
+    codigo INT,
+    titulo VARCHAR (15),
+    veiculo VARCHAR(15),
+    ano INT,
+    cod_proj INT,
+
+    PRIMARY KEY (codigo)
+    FOREIGN KEY (cod_proj) REFERENCES projeto (cod_proj)
+);
+
+
