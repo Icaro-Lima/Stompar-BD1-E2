@@ -1,3 +1,7 @@
+DROP TABLE departamento;
+DROP TABLE telefone;
+DROP TABLE professor;
+DROP TABLE aluno;
 DROP TABLE patente;
 DROP TABLE projeto;
 DROP TABLE recurso;
