@@ -49,6 +49,19 @@ CREATE TABLE recurso (
     FOREIGN KEY (laboratorio) REFERENCES laboratorio(cod_lab)
 );
 
+CREATE_TABLE agencia_financiadora (
+    cod_agencia INT,
+    nome VARCHAR(30),
+    email VARCHAR(40),
+    telefone VARCHAR(14),
+    endereco VARCHAR(150),
+    cod_projeto INT,
+    
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (cod_projeto) REFERENCES projeto(cod_proj)
+
+);
+
 CREATE TABLE projeto (
     cod_proj INT,
     orcamento NUMERIC(10, 2),
