@@ -60,6 +60,7 @@ CREATE_TABLE agencia_financiadora (
     PRIMARY KEY (codigo),
     FOREIGN KEY (cod_projeto) REFERENCES projeto(cod_proj)
 
+
 );
 
 CREATE TABLE projeto (

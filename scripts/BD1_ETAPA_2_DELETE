@@ -7,4 +7,4 @@ DROP TABLE projeto;
 DROP TABLE recurso;
 DROP TABLE laboratorio;
 DROP TABLE publicacao;
-DROP TABLE agencia_financiadora;
+DROP TABLE agencia_financiadora; 
