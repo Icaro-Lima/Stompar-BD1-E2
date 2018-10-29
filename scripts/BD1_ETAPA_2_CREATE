@@ -20,9 +20,11 @@ CREATE TABLE professor (
     matricula INT,
     nome VARCHAR(30),
     dt_nasc DATE,
-    titulacao VARCHAR(150)
+    titulacao VARCHAR(150),
+    cod_dpto INT,
 
-    PRIMARY KEY (matricula)
+    PRIMARY KEY (matricula),
+    FOREIGN KEY (cod_dpto) REFERENCES departamento(codigo)
 );
 
 CREATE TABLE aluno (
