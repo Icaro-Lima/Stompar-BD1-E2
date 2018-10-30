@@ -50,13 +50,27 @@ CREATE TABLE professor (
     dt_nasc DATE,
     titulacao VARCHAR(150),
     cod_dpto INT,
+    cod_lab INT,
+    mat_aluno INT,
 
     PRIMARY KEY (matricula),
-    FOREIGN KEY (cod_dpto) REFERENCES departamento(codigo)
+    FOREIGN KEY (cod_dpto) REFERENCES departamento(codigo),
+    FOREIGN KEY (cod_lab) REFERENCES laboratorio(codigo),
+    FOREIGN KEY (mat_aluno) REFERENCES aluno(matricula)
 );
 
 
+
 alter table "DEPARTAMENTO" add constraint "GERENTE_DEPT" foreign key ("GERENTE") references "PROFESSOR" ("MATRICULA");
+
+CREATE TABLE laboratorio (
+    codigo INT,
+    nome VARCHAR(30),
+    local VARCHAR(15),
+    
+    PRIMARY KEY (codigo)
+);
+
 
 CREATE TABLE recurso (
     codigo INT,
@@ -64,7 +78,7 @@ CREATE TABLE recurso (
     laboratorio INT,
     
     PRIMARY KEY (codigo),
-    FOREIGN KEY (laboratorio) REFERENCES laboratorio(cod_lab)
+    FOREIGN KEY (laboratorio) REFERENCES laboratorio(codigo)
 );
 
 
