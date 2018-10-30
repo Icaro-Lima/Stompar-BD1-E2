@@ -22,9 +22,13 @@ CREATE TABLE professor (
     dt_nasc DATE,
     titulacao VARCHAR(150),
     cod_dpto INT,
+    cod_lab INT,
+    mat_aluno INT,
 
     PRIMARY KEY (matricula),
-    FOREIGN KEY (cod_dpto) REFERENCES departamento(codigo)
+    FOREIGN KEY (cod_dpto) REFERENCES departamento(codigo),
+    FOREIGN KEY (cod_lab) REFERENCES laboratorio(codigo),
+    FOREIGN KEY (mat_aluno) REFERENCES aluno(matricula)
 );
 
 CREATE TABLE aluno (
@@ -35,11 +39,11 @@ CREATE TABLE aluno (
 );
 
 CREATE TABLE laboratorio (
-    cod_lab INT,
+    codigo INT,
     nome VARCHAR(30),
     local VARCHAR(15),
     
-    PRIMARY KEY (cod_lab)
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE recurso (
@@ -48,7 +52,7 @@ CREATE TABLE recurso (
     laboratorio INT,
     
     PRIMARY KEY (codigo),
-    FOREIGN KEY (laboratorio) REFERENCES laboratorio(cod_lab)
+    FOREIGN KEY (laboratorio) REFERENCES laboratorio(codigo)
 );
 
 CREATE_TABLE agencia_financiadora (
