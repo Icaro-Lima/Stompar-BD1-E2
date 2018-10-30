@@ -1,20 +1,48 @@
+CREATE TABLE projeto (
+    cod_proj INT,
+    orcamento NUMERIC(10, 2),
+    titulo VARCHAR(15),
+    descricao VARCHAR(100),
+    dt_inicio DATE,
+    dt_fim DATE,
+    
+    PRIMARY KEY (cod_proj)
+);
+CREATE TABLE telefone (
+    num_telefone VARCHAR(14),
+
+    PRIMARY KEY (num_telefone)
+);
+CREATE TABLE aluno (
+    matricula INT,
+    nome VARCHAR(30),
+    dt_nasc DATE,
+    nivel VARCHAR(150),
+    
+    PRIMARY KEY (matricula)
+);
+
+CREATE TABLE laboratorio (
+    cod_lab INT,
+    nome VARCHAR(30),
+    local VARCHAR(15),
+    
+    PRIMARY KEY (cod_lab)
+);
+
 CREATE TABLE departamento (
     codigo INT,
     endereco VARCHAR(150),
-    nome VARCHAR(30)
+    nome VARCHAR(30),
     telefone VARCHAR(14),
     gerente INT,
 
     PRIMARY KEY (codigo),
-    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone),
-    FOREIGN KEY (gerente) REFERENCES matricula(professor)
+    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone)
+
 );
 
-CREATE TABLE telefone (
-    num_telefone VARCHAR(14)
 
-    PRIMARY KEY (num_telefone)
-);
 
 CREATE TABLE professor (
     matricula INT,
@@ -31,12 +59,9 @@ CREATE TABLE professor (
     FOREIGN KEY (mat_aluno) REFERENCES aluno(matricula)
 );
 
-CREATE TABLE aluno (
-    matricula INT,
-    nome VARCHAR(30),
-    dt_nasc DATE,
-    nivel VARCHAR(150)
-);
+
+
+alter table "DEPARTAMENTO" add constraint "GERENTE_DEPT" foreign key ("GERENTE") references "PROFESSOR" ("MATRICULA");
 
 CREATE TABLE laboratorio (
     codigo INT,
@@ -45,6 +70,7 @@ CREATE TABLE laboratorio (
     
     PRIMARY KEY (codigo)
 );
+
 
 CREATE TABLE recurso (
     codigo INT,
@@ -55,7 +81,8 @@ CREATE TABLE recurso (
     FOREIGN KEY (laboratorio) REFERENCES laboratorio(codigo)
 );
 
-CREATE_TABLE agencia_financiadora (
+
+CREATE TABLE agencia_financiadora (
     cod_agencia INT,
     nome VARCHAR(30),
     email VARCHAR(40),
@@ -63,23 +90,11 @@ CREATE_TABLE agencia_financiadora (
     endereco VARCHAR(150),
     cod_projeto INT,
     
-    PRIMARY KEY (codigo),
+    PRIMARY KEY (cod_agencia),
     FOREIGN KEY (cod_projeto) REFERENCES projeto(cod_proj)
 
 
 );
-
-CREATE TABLE projeto (
-    cod_proj INT,
-    orcamento NUMERIC(10, 2),
-    titulo VARCHAR(15),
-    descricao VARCHAR(100),
-    dt_inicio DATE,
-    dt_fim DATE,
-    
-    PRIMARY KEY (cod_proj)
-);
-
 CREATE TABLE patente (
     codigo INT,
     num_reg INT,
@@ -97,7 +112,7 @@ CREATE TABLE publicacao (
     ano INT,
     cod_proj INT,
 
-    PRIMARY KEY (codigo)
+    PRIMARY KEY (codigo),
     FOREIGN KEY (cod_proj) REFERENCES projeto (cod_proj)
 );
 
