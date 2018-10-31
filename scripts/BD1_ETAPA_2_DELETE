@@ -1,10 +1,11 @@
-DROP TABLE departamento;
-DROP TABLE telefone;
-DROP TABLE professor;
-DROP TABLE aluno;
-DROP TABLE patente;
-DROP TABLE projeto;
-DROP TABLE recurso;
-DROP TABLE laboratorio;
-DROP TABLE publicacao;
-DROP TABLE agencia_financiadora; 
+drop TABLE "PROJETO" cascade constraints;
+drop TABLE "ALUNO" cascade constraints;
+drop TABLE "TELEFONE" cascade constraints;
+drop TABLE "PATENTE";
+drop TABLE "RECURSO";
+drop TABLE "PROFESSOR" cascade constraints;
+drop TABLE "LABORATORIO" cascade constraints;
+drop TABLE "DEPARTAMENTO" cascade constraints;
+drop TABLE "PUBLICACAO";
+drop TABLE "AGENCIA_FINANCIADORA";
+
