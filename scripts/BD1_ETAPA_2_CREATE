@@ -50,9 +50,11 @@ CREATE TABLE aluno (
     dt_nasc DATE,
     nivel VARCHAR(150),
     orientador INT,
+    cod_pesquisa INT,
     
-    PRIMARY KEY (matricula)
-    FOREIGN KEY orientador REFERENCES professor(matricula)
+    PRIMARY KEY (matricula),
+    FOREIGN KEY orientador REFERENCES professor(matricula),
+    FOREIGN KEY cod_pesquisa REFERENCES linha_pesquisa(pk_cnpq)
 );
 
 
