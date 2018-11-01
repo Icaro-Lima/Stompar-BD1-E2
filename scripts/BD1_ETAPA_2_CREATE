@@ -50,6 +50,7 @@ CREATE TABLE aluno (
     nivel VARCHAR(150),
     orientador INT,
     cod_pesquisa INT,
+    financiadora INT,
     
     PRIMARY KEY (matricula),
     FOREIGN KEY orientador REFERENCES professor(matricula),
@@ -112,9 +113,10 @@ CREATE TABLE agencia_financiadora (
     
     PRIMARY KEY (cod_agencia),
     FOREIGN KEY (cod_projeto) REFERENCES projeto(cod_proj)
-
-
 );
+
+
+ALTER TABLE "aluno" ADD CONSTRAINT "ag_financiadora" FOREIGN KEY ("financiadora") REFERENCES agencia_financiadora("cod_agencia")
 
 CREATE TABLE patente (
     cod_pat INT,
