@@ -1,33 +1,9 @@
-CREATE TABLE projeto (
-    cod_proj INT,
-    orcamento NUMERIC(10, 2),
-    titulo VARCHAR(15),
-    descricao VARCHAR(100),
-    dt_inicio DATE,
-    dt_fim DATE,
-    
-    PRIMARY KEY (cod_proj)
-);
+
+
 CREATE TABLE telefone (
     num_telefone VARCHAR(14),
 
     PRIMARY KEY (num_telefone)
-);
-CREATE TABLE aluno (
-    matricula INT,
-    nome VARCHAR(30),
-    dt_nasc DATE,
-    nivel VARCHAR(150),
-    
-    PRIMARY KEY (matricula)
-);
-
-CREATE TABLE laboratorio (
-    cod_lab INT,
-    nome VARCHAR(30),
-    local VARCHAR(15),
-    
-    PRIMARY KEY (cod_lab)
 );
 
 CREATE TABLE departamento (
@@ -42,6 +18,15 @@ CREATE TABLE departamento (
 
 );
 
+CREATE TABLE linha_pesquisa (
+    codlnpq INT,
+    subcnpq INT,
+    nomearea VARCHAR(30),
+    nomesubarea VARCHAR(30),
+
+    CONSTRAINT pk_cnpq PRIMARY KEY (colnpq, subcnpq)
+);
+
 CREATE TABLE professor (
     matricula INT,
     nome VARCHAR(30),
@@ -50,11 +35,54 @@ CREATE TABLE professor (
     cod_dpto INT,
     cod_lab INT,
     mat_aluno INT,
+    cod_pesquisa INT
 
     PRIMARY KEY (matricula),
     FOREIGN KEY (cod_dpto) REFERENCES departamento(cod_dep),
     FOREIGN KEY (cod_lab) REFERENCES laboratorio(cod_lab),
-    FOREIGN KEY (mat_aluno) REFERENCES aluno(matricula)
+    FOREIGN KEY (mat_aluno) REFERENCES aluno(matricula),
+    FOREIGN KEY (cod_pesquisa) REFERENCES linha_pesquisa(pk_cnpq)
+);
+
+CREATE TABLE aluno (
+    matricula INT,
+    nome VARCHAR(30),
+    dt_nasc DATE,
+    nivel VARCHAR(150),
+    orientador INT,
+    
+    PRIMARY KEY (matricula)
+    FOREIGN KEY orientador REFERENCES professor(matricula)
+);
+
+
+CREATE TABLE laboratorio (
+    cod_lab INT,
+    nome VARCHAR(30),
+    local VARCHAR(15),
+    coord_matr INT,
+    
+    PRIMARY KEY (cod_lab),
+    FOREIGN KEY (coord_matr) REFERENCES professor(matricula)
+);
+
+CREATE TABLE projeto (
+    cod_proj INT,
+    orcamento NUMERIC(10, 2),
+    titulo VARCHAR(15),
+    descricao VARCHAR(100),
+    dt_inicio DATE,
+    dt_fim DATE,
+    coord_matr INT,
+    professor INT,
+    laboratorio INT,
+    cod_pesquisa INT,
+    
+    PRIMARY KEY (cod_proj),
+    FOREIGN KEY coord_matr REFERENCES professor(matricula),
+    FOREIGN KEY professor REFERENCES professor(matricula),
+    FOREIGN KEY laboratorio REFERENCES laboratorio(codigo),
+    FOREIGN KEY cod_pesquisa REFERNECES linha_pesquisa(pk_cnpq)
 );
 
 
@@ -86,6 +114,7 @@ CREATE TABLE agencia_financiadora (
 
 
 );
+
 CREATE TABLE patente (
     cod_pat INT,
     num_reg INT,
@@ -102,7 +131,11 @@ CREATE TABLE publicacao (
     veiculo VARCHAR(15),
     ano INT,
     cod_proj INT,
+    matr_prof INT,
 
     PRIMARY KEY (codigo),
-    FOREIGN KEY (cod_proj) REFERENCES projeto (cod_proj)
+    FOREIGN KEY (cod_proj) REFERENCES projeto (cod_proj),
+    FOREIGN KEY (matr_prof) REFERENCES professor (matricula)
 );
+
+
