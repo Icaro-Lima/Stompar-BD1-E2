@@ -14,8 +14,7 @@ CREATE TABLE departamento (
     gerente INT,
 
     PRIMARY KEY (cod_dep),
-    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone)
-
+    FOREIGN KEY (telefone) REFERENCES telefone(num_telefone),
 );
 
 CREATE TABLE linha_pesquisa (
@@ -24,7 +23,7 @@ CREATE TABLE linha_pesquisa (
     nomearea VARCHAR(30),
     nomesubarea VARCHAR(30),
 
-    CONSTRAINT pk_cnpq PRIMARY KEY (colnpq, subcnpq)
+    CONSTRAINT pk_cnpq PRIMARY KEY (codlnpq, subcnpq)
 );
 
 CREATE TABLE professor (
