@@ -70,6 +70,22 @@ where extract (year from dt_nasc) = 1975 and departamento.mat_professor not in (
     where mat_professor is not null);
 
 
+/* Questão 9 */
+
+SELECT Count(a.cod_agencia) AS alunos_financiados,
+       af.codigo,
+       af.nome,
+       af.email,
+       af.endereco
+FROM   aluno a
+       right outer join agencia_financiadora af
+                     ON a.cod_agencia = af.codigo
+GROUP  BY af.codigo,
+          af.nome,
+          af.email,
+          af.endereco; 
+
+
 /* Questão 11 */
 
 Select *
