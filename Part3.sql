@@ -40,12 +40,17 @@ WHERE EXTRACT (YEAR FROM aluno.DT_NASC) > 1990
 SELECT * FROM PROJETO
 WHERE EXTRACT (YEAR FROM DT_INICIO) > 2012 AND ORCAMENTO < 800000;
 
-/* Questão 6 */
-
-Select matricula
-from professor
-where matricula = all (select mat_professor
-from projeto);
+-- 6. Quais professores participam de todos os projetos?
+SELECT prof.* FROM PROFESSOR prof
+WHERE
+	(
+	    SELECT COUNT(*) FROM PROFESSOR_PROJETO prof_proj
+	    WHERE prof.MATRICULA = prof_proj.MAT_PROFESSOR
+	)
+	=
+	(
+	    SELECT COUNT(*) FROM PROJETO
+	);
 
 /* Questão 7 */
 
