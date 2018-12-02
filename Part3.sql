@@ -1,5 +1,4 @@
-﻿/* Igor start */
-
+﻿
 /* Questao 1 */
 CREATE VIEW vwProdutos
 AS
@@ -91,5 +90,3 @@ Select nivel, nome
 from aluno join aluno_publicacao on aluno.matricula = aluno_publicacao.mat_aluno join publicacao on publicacao.codigo = aluno_publicacao.cod_publicacao
 where publicacao.ano > 2012;
 
-
-/* Igor end */
