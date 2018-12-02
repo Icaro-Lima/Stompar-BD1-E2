@@ -83,7 +83,7 @@ WHERE  dept.mat_professor = prof.matricula
 SELECT (SELECT Count(*)
         FROM   aluno aluno
         WHERE  aluno.cod_agencia = agencia.codigo
-               AND Lower(aluno.nivel) = 'graduação'),
+               AND Lower(aluno.nivel) = 'graduação') AS alunos_financiados,
        agencia.*
 FROM   agencia_financiadora agencia;
 
