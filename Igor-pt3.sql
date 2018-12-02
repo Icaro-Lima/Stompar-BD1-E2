@@ -33,6 +33,12 @@ from agencia_financiadora
 where codigo in (select cod_agencia
 from aluno
 where nivel = 'Doutorado' and valor_bolsa > 2000);
+/* Questão 8 */
+
+select nome from departamento 
+where MAT_PROFESSOR 
+not in(select p.matricula from professor p where  EXTRACT(YEAR FROM p.dt_nasc) = 1975 and p.matricula in
+       (select MAT_PROFESSOR from aluno a where  nivel = 'doutorado'))
 
 
 /* Questão 11 */
