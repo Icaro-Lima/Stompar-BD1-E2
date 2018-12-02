@@ -68,8 +68,16 @@ from departamento join professor on departamento.mat_professor = matricula
 where extract (year from dt_nasc) = 1975 and departamento.mat_professor not in (select mat_professor
     from aluno
     where mat_professor is not null);
-
-
+			  
+/* Questão 10 */
+select distinct(nomeDept),sum(orcamento)
+from projeto pj join 
+	  (select d.nome as nomeDept,p.matricula 
+	   from departamento d join professor p on p.COD_DEPARTAMENTO = d.codigo 
+	   group by d.nome,p.matricula )
+	on MAT_PROFESSOR = matricula 
+group by nomeDept order by sum(orcamento)
+			  
 /* Questão 11 */
 
 Select *
