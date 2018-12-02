@@ -50,7 +50,12 @@ where aluno.matricula in (SELECT aluno_publicacao.mat_aluno
     where aluno_publicacao.cod_publicacao in (select codigo
     from publicacao
     where publicacao.ano = 2011)) and aluno.nivel = 'Doutorado';
-
+/* Questão 12*/
+ 
+select count(*) 
+from aluno_publicacao
+where mat_aluno in (select matricula from aluno where nivel <> 'mestrado')       
+                                              
 /* Questão 13 */
 
 select SUM(orcamento)
