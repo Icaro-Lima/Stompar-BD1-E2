@@ -73,7 +73,6 @@ where extract (year from dt_nasc) = 1975 and departamento.mat_professor not in (
 
 
 /* Questão 9 */
-
 SELECT Count(a.cod_agencia) AS alunos_financiados,
        af.codigo,
        af.nome,
