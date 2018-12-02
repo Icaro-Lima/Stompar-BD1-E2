@@ -120,13 +120,16 @@ WHERE  aluno.matricula IN (SELECT aluno_publicacao.mat_aluno
        AND Lower(aluno.nivel) = 'doutorado'; 
 
 
-/* Questão 12*/
-
+	   
+-- 12.Liste a quantidade de publicações no ano de 2005 que não contam com a participação
+-- nenhum aluno de mestrado.
 SELECT Count(*)
-FROM   aluno_publicacao
-WHERE  mat_aluno IN (SELECT matricula
-                     FROM   aluno
-                     WHERE  Lower(nivel) <> 'mestrado'); 
+FROM publicacao
+WHERE publicacao.ano = 2005 AND publicacao.codigo IN (SELECT cod_publicacao 
+													  FROM aluno_publicacao ap 
+													  WHERE ap.mat_aluno IN (SELECT matricula 
+																			 FROM aluno 
+																			 WHERE LOWER(aluno.NIVEL) <> 'mestrado'));
 
 /* Questão 13 */
 
