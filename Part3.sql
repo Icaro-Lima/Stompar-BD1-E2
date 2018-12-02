@@ -77,20 +77,15 @@ WHERE  dept.mat_professor = prof.matricula
                                   FROM   aluno
                                   WHERE  Lower(nivel) = 'doutorado');
 
-/* Questão 9 */
-SELECT Count(a.cod_agencia) AS alunos_financiados,
-       af.codigo,
-       af.nome,
-       af.email,
-       af.endereco
-FROM   aluno a
-       right outer join agencia_financiadora af
-                     ON a.cod_agencia = af.codigo
-WHERE  Lower(a.nivel) = 'graduação'
-GROUP  BY af.codigo,
-          af.nome,
-          af.email,
-          af.endereco; 
+-- 9. Liste a quantidade de alunos de graduação financiados por agência
+-- financiadora, exiba todos os dados da agência, inclua as agências que não
+-- financiam nenhum aluno graduação.
+SELECT (SELECT Count(*)
+        FROM   aluno aluno
+        WHERE  aluno.cod_agencia = agencia.codigo
+               AND Lower(aluno.nivel) = 'graduação'),
+       agencia.*
+FROM   agencia_financiadora agencia;
 
 /* Questão 10 */
 			  
