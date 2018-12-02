@@ -1,4 +1,10 @@
-/* Igor start */
+﻿/* Igor start */
+
+/* Questao 1 */
+CREATE VIEW vwProdutos AS
+SELECT p.codigo, p.titulo, p.veiculo
+FROM publicacao p
+WHERE p.cod_projeto IN (SELECT codigo FROM projeto WHERE dt_inicio > '12/01/2012')
 
 /* Questão 2 */
 
@@ -6,6 +12,14 @@ SELECT COUNT(*), cod_cnpq, cod_sub_cnpq
 from aluno
 where aluno.nivel = 'Mestrado'
 GROUP BY cod_cnpq, cod_sub_cnpq;
+
+/* Questao 3 */
+CREATE VIEW vwQuest3 AS
+SELECT l.codigo, l.nome , l.local
+FROM laboratorio l
+WHERE l.codigo IN (SELECT cod_laboratorio FROM laboratorio_projeto
+                          WHERE cod_projeto IN (SELECT p.codigo FROM projeto p
+                                                       WHERE EXTRACT(YEAR FROM p.dt_inicio) = 2005))
 
 /* Questão 4 */
 
@@ -16,8 +30,8 @@ where aluno.dt_nasc > '12/31/1990' and ano = 2012;
 
 /* Questão 5 */
 SELECT *
-FROM projeto
-WHERE dt_inicio > '01/01/2012' AND orcamento < 800000;
+FROM projeto p
+WHERE EXTRACT(YEAR FROM p.dt_inicio) > 2012 and orcamento < 800000
 
 /* Questão 6 */
 
