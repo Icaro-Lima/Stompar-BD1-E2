@@ -63,14 +63,16 @@ WHERE  aluno.valor_bolsa > 2000
        AND aluno.cod_agencia = agencia.codigo;
 
 
-/* Questão 8 */
-
-select departamento.nome
-from departamento join professor on departamento.mat_professor = matricula
-where extract (year from dt_nasc) = 1975 and departamento.mat_professor not in (select mat_professor
-    from aluno
-    where mat_professor is not null);
-
+-- 8. Liste os departamentos que são gerenciados por professores que nasceram em
+-- 1975 e não têm nenhum aluno de doutorado como orientando.
+SELECT dept.*
+FROM   departamento dept,
+       professor prof
+WHERE  dept.mat_professor = prof.matricula
+       AND Extract (year FROM prof.dt_nasc) = 1975
+       AND prof.matricula NOT IN (SELECT mat_professor
+                                  FROM   aluno
+                                  WHERE  Lower(nivel) = 'doutorado');
 
 /* Questão 9 */
 SELECT Count(a.cod_agencia) AS alunos_financiados,
