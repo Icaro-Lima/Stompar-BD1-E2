@@ -10,10 +10,13 @@ AS
 
 /* Questão 2 */
 
-SELECT COUNT(*), cod_cnpq, cod_sub_cnpq
-from aluno
-where LOWER(aluno.nivel) = 'mestrado'
-GROUP BY cod_cnpq, cod_sub_cnpq;
+SELECT Count(*),
+       cod_cnpq,
+       cod_sub_cnpq
+FROM   aluno
+WHERE  Lower(aluno.nivel) = 'mestrado'
+GROUP  BY cod_cnpq,
+          cod_sub_cnpq; 
 
 /* Questao 3 */
 CREATE VIEW vwQuest3
