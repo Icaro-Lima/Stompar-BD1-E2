@@ -12,7 +12,7 @@ AS
 
 SELECT COUNT(*), cod_cnpq, cod_sub_cnpq
 from aluno
-where aluno.nivel = 'Mestrado'
+where LOWER(aluno.nivel) = 'mestrado'
 GROUP BY cod_cnpq, cod_sub_cnpq;
 
 /* Questao 3 */
@@ -58,7 +58,9 @@ Select *
 from agencia_financiadora
 where codigo in (select cod_agencia
 from aluno
-where nivel = 'Doutorado' and valor_bolsa > 2000);
+where LOWER(nivel)  = 'doutorado' and valor_bolsa > 2000);
+
+
 /* Questão 8 */
 
 select departamento.nome
@@ -76,14 +78,16 @@ where aluno.matricula in (SELECT aluno_publicacao.mat_aluno
     from aluno_publicacao
     where aluno_publicacao.cod_publicacao in (select codigo
     from publicacao
-    where publicacao.ano = 2011)) and aluno.nivel = 'Doutorado';
+    where publicacao.ano = 2011)) and LOWER(aluno.nivel) = 'doutorado';
+
+
 /* Questão 12*/
 
 select count(*)
 from aluno_publicacao
 where mat_aluno in (select matricula
 from aluno
-where nivel <> 'mestrado')
+where LOWER(nivel) <> 'mestrado');
 
 /* Questão 13 */
 
