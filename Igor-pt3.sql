@@ -17,7 +17,7 @@ where aluno.dt_nasc > '12/31/1990' and ano = 2012;
 /* Questão 5 */
 SELECT *
 FROM projeto
-WHERE dt_inicio > '01/01/2012' AND orcamento < 800000;
+WHERE dt_inicio > '12/31/2012' AND orcamento < 800000;
 
 /* Questão 6 */
 
