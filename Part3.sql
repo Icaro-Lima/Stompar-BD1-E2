@@ -142,3 +142,15 @@ FROM   aluno
          ON publicacao.codigo = aluno_publicacao.cod_publicacao
 WHERE  publicacao.ano > 2012; 
 
+-- 15. Crie um trigger para toda vez que uma nova patente for inserida,
+-- incremente a coluna premiação (que deve ser colocada com valor ZERO para cada
+-- projeto cadastrado) na tabela de projetos.
+CREATE OR replace TRIGGER incr_premiacao_por_patente
+  BEFORE INSERT ON patente
+  FOR EACH ROW
+BEGIN
+    UPDATE projeto
+    SET    premiacao = premiacao + 1
+    WHERE  codigo = :new.cod_projeto;
+END;
+
