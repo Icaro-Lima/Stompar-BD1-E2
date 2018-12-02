@@ -81,6 +81,7 @@ SELECT Count(a.cod_agencia) AS alunos_financiados,
 FROM   aluno a
        right outer join agencia_financiadora af
                      ON a.cod_agencia = af.codigo
+WHERE  Lower(a.nivel) = 'graduação'
 GROUP  BY af.codigo,
           af.nome,
           af.email,
