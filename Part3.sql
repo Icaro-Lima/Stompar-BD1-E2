@@ -28,37 +28,39 @@ AS
 
 -- 4. Quais os alunos que de doutorado nasceram depois de 1990 e têm alguma
 -- publicação no ano de 2012?
-SELECT aluno.* FROM ALUNO aluno, PUBLICACAO pub, ALUNO_PUBLICACAO aluno_pub
-WHERE EXTRACT (YEAR FROM aluno.DT_NASC) > 1990
-    AND LOWER(aluno.NIVEL) = 'doutorado'
-    AND aluno_pub.MAT_ALUNO = aluno.MATRICULA
-    AND aluno_pub.COD_PUBLICACAO = pub.CODIGO
-    AND pub.ANO = 2012;
+SELECT aluno.*
+FROM   aluno aluno,
+       publicacao pub,
+       aluno_publicacao aluno_pub
+WHERE  Extract (year FROM aluno.dt_nasc) > 1990
+       AND Lower(aluno.nivel) = 'doutorado'
+       AND aluno_pub.mat_aluno = aluno.matricula
+       AND aluno_pub.cod_publicacao = pub.codigo
+       AND pub.ano = 2012;
 
 -- 5. Quais os projetos que iniciaram depois de 2012 e possuem um orçamento
 -- menor que R$ 800.000?
-SELECT * FROM PROJETO
-WHERE EXTRACT (YEAR FROM DT_INICIO) > 2012 AND ORCAMENTO < 800000;
+SELECT *
+FROM   projeto
+WHERE  Extract (year FROM dt_inicio) > 2012
+       AND orcamento < 800000;
 
 -- 6. Quais professores participam de todos os projetos?
-SELECT prof.* FROM PROFESSOR prof
-WHERE
-	(
-	    SELECT COUNT(*) FROM PROFESSOR_PROJETO prof_proj
-	    WHERE prof.MATRICULA = prof_proj.MAT_PROFESSOR
-	)
-	=
-	(
-	    SELECT COUNT(*) FROM PROJETO
-	);
+SELECT prof.*
+FROM   professor prof
+WHERE  (SELECT Count(*)
+        FROM   professor_projeto prof_proj
+        WHERE  prof.matricula = prof_proj.mat_professor) = (SELECT Count(*)
+                                                            FROM   projeto);
 
-/* Questão 7 */
-
-Select *
-from agencia_financiadora
-where codigo in (select cod_agencia
-from aluno
-where LOWER(nivel)  = 'doutorado' and valor_bolsa > 2000);
+-- 7. Quais agências financiadoras que financiam bolsas de mais de R$2000 para
+--alunos de doutorado?
+SELECT agencia.*
+FROM   aluno aluno,
+       agencia_financiadora agencia
+WHERE  aluno.valor_bolsa > 2000
+       AND Lower(aluno.nivel) = 'doutorado'
+       AND aluno.cod_agencia = agencia.codigo;
 
 
 /* Questão 8 */
