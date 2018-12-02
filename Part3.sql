@@ -104,32 +104,41 @@ GROUP  BY nomedept
 			  
 /* Questão 11 */
 
-Select *
-from aluno
-where aluno.matricula in (SELECT aluno_publicacao.mat_aluno
-    from aluno_publicacao
-    where aluno_publicacao.cod_publicacao in (select codigo
-    from publicacao
-    where publicacao.ano = 2011)) and LOWER(aluno.nivel) = 'doutorado';
+SELECT *
+FROM   aluno
+WHERE  aluno.matricula IN (SELECT aluno_publicacao.mat_aluno
+                           FROM   aluno_publicacao
+                           WHERE  aluno_publicacao.cod_publicacao IN (SELECT
+                                  codigo
+                                                                      FROM
+                                  publicacao
+                                                                      WHERE
+                                  publicacao.ano = 2011))
+       AND Lower(aluno.nivel) = 'doutorado'; 
 
 
 /* Questão 12*/
 
-select count(*)
-from aluno_publicacao
-where mat_aluno in (select matricula
-from aluno
-where LOWER(nivel) <> 'mestrado');
+SELECT Count(*)
+FROM   aluno_publicacao
+WHERE  mat_aluno IN (SELECT matricula
+                     FROM   aluno
+                     WHERE  Lower(nivel) <> 'mestrado'); 
 
 /* Questão 13 */
 
-select SUM(orcamento)
-from projeto
-where dt_fim between '01/01/2009' and '12/31/2009';
+SELECT SUM(orcamento)
+FROM   projeto
+WHERE  dt_fim BETWEEN '01/01/2009' AND '12/31/2009'; 
 
 /* Questão 14 */
 
-Select nivel, nome
-from aluno join aluno_publicacao on aluno.matricula = aluno_publicacao.mat_aluno join publicacao on publicacao.codigo = aluno_publicacao.cod_publicacao
-where publicacao.ano > 2012;
+SELECT nivel,
+       nome
+FROM   aluno
+       join aluno_publicacao
+         ON aluno.matricula = aluno_publicacao.mat_aluno
+       join publicacao
+         ON publicacao.codigo = aluno_publicacao.cod_publicacao
+WHERE  publicacao.ano > 2012; 
 
