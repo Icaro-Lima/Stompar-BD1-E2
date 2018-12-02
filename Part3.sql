@@ -86,7 +86,19 @@ GROUP  BY af.codigo,
           af.email,
           af.endereco; 
 
-
+/* Questão 10 */
+			  
+SELECT DISTINCT( nomedept ),
+               SUM(orcamento)
+FROM   projeto pj
+       join (SELECT d.nome AS nomeDept,
+                    p.matricula
+             FROM   departamento d
+                    join professor p
+                      ON p.cod_departamento = d.codigo)
+         ON mat_professor = matricula
+GROUP  BY nomedept 
+			  
 /* Questão 11 */
 
 Select *
