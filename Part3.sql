@@ -70,6 +70,19 @@ where extract (year from dt_nasc) = 1975 and departamento.mat_professor not in (
     where mat_professor is not null);
 
 
+/* Questão 10 */
+			  
+SELECT DISTINCT( nomedept ),
+               SUM(orcamento)
+FROM   projeto pj
+       join (SELECT d.nome AS nomeDept,
+                    p.matricula
+             FROM   departamento d
+                    join professor p
+                      ON p.cod_departamento = d.codigo)
+         ON mat_professor = matricula
+GROUP  BY nomedept 
+			  
 /* Questão 11 */
 
 Select *
