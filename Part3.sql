@@ -92,18 +92,17 @@ GROUP  BY af.codigo,
           af.email,
           af.endereco; 
 
-/* Questão 10 */
-			  
-SELECT DISTINCT( nomedept ),
-               SUM(orcamento)
-FROM   projeto pj
-       join (SELECT d.nome AS nomeDept,
-                    p.matricula
-             FROM   departamento d
-                    join professor p
-                      ON p.cod_departamento = d.codigo)
-         ON mat_professor = matricula
-GROUP  BY nomedept 
+-- 10. Liste os departamentos por tamanho do orçamento dos projetos coordenados
+-- pelos seus professores.
+SELECT (SELECT Sum(proj.orcamento)
+        FROM   projeto proj,
+               professor prof
+        WHERE  proj.mat_professor = prof.matricula
+               AND prof.matricula IN (SELECT mat_professor
+                                      FROM   departamento
+                                      WHERE  codigo = dept.codigo)),
+       dept.*
+FROM   departamento dept;
 			  
 /* Questão 11 */
 
