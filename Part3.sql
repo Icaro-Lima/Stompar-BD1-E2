@@ -26,11 +26,14 @@ AS
     FROM projeto p
     WHERE EXTRACT(YEAR FROM p.dt_inicio) = 2005))
 
-/* Questão 4 */
-
-Select matricula, nivel, dt_nasc, ano
-from aluno join aluno_publicacao on aluno.matricula = aluno_publicacao.mat_aluno join publicacao on aluno_publicacao.cod_publicacao = publicacao.codigo
-where aluno.dt_nasc > '12/31/1990' and ano = 2012;
+-- 4. Quais os alunos que de doutorado nasceram depois de 1990 e têm alguma
+-- publicação no ano de 2012?
+SELECT aluno.* FROM ALUNO aluno, PUBLICACAO pub, ALUNO_PUBLICACAO aluno_pub
+WHERE EXTRACT (YEAR FROM aluno.DT_NASC) >= 1990
+    AND LOWER(aluno.NIVEL) = 'doutorado'
+    AND aluno_pub.MAT_ALUNO = aluno.MATRICULA
+    AND aluno_pub.COD_PUBLICACAO = pub.CODIGO
+    AND pub.ANO = 2012;
 
 
 /* Questão 5 */
