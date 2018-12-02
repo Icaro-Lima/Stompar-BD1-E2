@@ -29,17 +29,16 @@ AS
 -- 4. Quais os alunos que de doutorado nasceram depois de 1990 e têm alguma
 -- publicação no ano de 2012?
 SELECT aluno.* FROM ALUNO aluno, PUBLICACAO pub, ALUNO_PUBLICACAO aluno_pub
-WHERE EXTRACT (YEAR FROM aluno.DT_NASC) >= 1990
+WHERE EXTRACT (YEAR FROM aluno.DT_NASC) > 1990
     AND LOWER(aluno.NIVEL) = 'doutorado'
     AND aluno_pub.MAT_ALUNO = aluno.MATRICULA
     AND aluno_pub.COD_PUBLICACAO = pub.CODIGO
     AND pub.ANO = 2012;
 
-
-/* Questão 5 */
-SELECT *
-FROM projeto p
-WHERE EXTRACT(YEAR FROM p.dt_inicio) > 2012 and orcamento < 800000
+-- 5. Quais os projetos que iniciaram depois de 2012 e possuem um orçamento
+-- menor que R$ 800.000?
+SELECT * FROM PROJETO
+WHERE EXTRACT (YEAR FROM DT_INICIO) > 2012 AND ORCAMENTO < 800000;
 
 /* Questão 6 */
 
