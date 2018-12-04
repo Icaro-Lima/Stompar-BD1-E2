@@ -39,39 +39,39 @@ AS
 
 -- 4. Quais os alunos que de doutorado nasceram depois de 1990 e têm alguma
 -- publicação no ano de 2012?
-SELECT aluno.*
-FROM   aluno aluno,
-       publicacao pub,
-       aluno_publicacao aluno_pub
-WHERE  Extract (year FROM aluno.dt_nasc) > 1990
-       AND Lower(aluno.nivel) = 'doutorado'
-       AND aluno_pub.mat_aluno = aluno.matricula
+SELECT ALUNO.*
+FROM   ALUNO aluno,
+       PUBLICACAO pub,
+       ALUNO_PUBLICACAO aluno_pub
+WHERE  EXTRACT (year FROM ALUNO.dt_nasc) > 1990
+       AND LOWER(ALUNO.nivel) = 'doutorado'
+       AND aluno_pub.mat_aluno = ALUNO.matricula
        AND aluno_pub.cod_publicacao = pub.codigo
        AND pub.ano = 2012;
 
 -- 5. Quais os projetos que iniciaram depois de 2012 e possuem um orçamento
 -- menor que R$ 800.000?
 SELECT *
-FROM   projeto
-WHERE  Extract (year FROM dt_inicio) > 2012
+FROM   PROJETO
+WHERE  EXTRACT (year FROM dt_inicio) > 2012
        AND orcamento < 800000;
 
 -- 6. Quais professores participam de todos os projetos?
 SELECT prof.*
-FROM   professor prof
-WHERE  (SELECT Count(*)
-        FROM   professor_projeto prof_proj
-        WHERE  prof.matricula = prof_proj.mat_professor) = (SELECT Count(*)
-                                                            FROM   projeto);
+FROM   PROFESSOR prof
+WHERE  (SELECT COUNT(*)
+        FROM   PROFESSOR_PROJETO prof_proj
+        WHERE  prof.matricula = prof_proj.mat_professor) = (SELECT COUNT(*)
+                                                            FROM   PROJETO);
 
 -- 7. Quais agências financiadoras que financiam bolsas de mais de R$2000 para
 --alunos de doutorado?
 SELECT agencia.*
-FROM   aluno aluno,
-       agencia_financiadora agencia
-WHERE  aluno.valor_bolsa > 2000
-       AND Lower(aluno.nivel) = 'doutorado'
-       AND aluno.cod_agencia = agencia.codigo;
+FROM   ALUNO aluno,
+       AGENCIA_FINANCIADORA agencia
+WHERE  ALUNO.valor_bolsa > 2000
+       AND LOWER(ALUNO.nivel) = 'doutorado'
+       AND ALUNO.cod_agencia = agencia.codigo;
 
 
 -- 8. Liste os departamentos que são gerenciados por professores que nasceram em
