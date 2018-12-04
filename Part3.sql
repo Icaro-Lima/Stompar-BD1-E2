@@ -1,6 +1,6 @@
 -- 1. Crie uma view que lista as publicações geradas em projetos que iniciaram
 -- em 2013.
-CREATE OR replace VIEW vwprodutos
+CREATE OR replace VIEW vw_pub_projs_2013
 AS
   SELECT p.codigo,
          p.titulo,
@@ -24,7 +24,7 @@ GROUP  BY cod_cnpq,
 
 -- 3. Crie uma view que lista os laboratórios que executam projetos iniciados
 -- em 2005.
-CREATE OR replace VIEW vwquest3
+CREATE OR replace VIEW vw_lab_exec_proj_2005
 AS
   SELECT l.codigo,
          l.nome,
