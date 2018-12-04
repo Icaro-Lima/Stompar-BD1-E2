@@ -154,3 +154,25 @@ BEGIN
     WHERE  codigo = :new.cod_projeto;
 END;
 
+/
+
+-- 16. Crie um trigger que não permita a inserção de bolsas com valor menor que
+-- R$ 430 para alunos de graduação e R$ 1000 para alunos de mestrado e
+-- doutorado.
+CREATE OR replace TRIGGER bolsa_restricoes
+  BEFORE INSERT ON aluno
+  FOR EACH ROW
+BEGIN
+    IF Lower(:new.nivel) = 'graduação'
+       AND :new.valor_bolsa < 430 THEN
+      Raise_application_error(-20001,
+      'Aluno de graduação não pode possuir bolsa menor que R$ 430.');
+    ELSIF ( Lower(:new.nivel) = 'mestrado'
+             OR Lower(:new.nivel) = 'doutorado' )
+          AND :new.valor_bolsa < 1000 THEN
+      Raise_application_error(-20002,
+'Aluno de mestrado ou doutorado não pode possuir bolsa menor que R$ 1000.');
+END IF;
+END;
+
+/
