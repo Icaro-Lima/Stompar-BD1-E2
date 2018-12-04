@@ -104,9 +104,9 @@ SELECT (SELECT SUM(proj.orcamento)
         WHERE  proj.mat_professor = prof.matricula
                AND prof.matricula IN (SELECT mat_professor
                                       FROM   DEPARTAMENTO
-                                      WHERE  codigo = dept.codigo)),
+                                      WHERE  codigo = dept.codigo)) as orçamento_por_departamento,
        dept.*
-FROM   DEPARTAMENTO dept;
+FROM DEPARTAMENTO dept;
 
 
 -- 11.Quais os alunos de doutorado que participaram de alguma publicação em
