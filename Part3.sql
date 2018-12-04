@@ -154,3 +154,20 @@ BEGIN
     WHERE  codigo = :new.cod_projeto;
 END;
 
+
+--16. Crie um trigger que não permita a inserção de bolsas 
+-- com valor menor que R$ 430 para alunos de graduação 
+-- e R$ 1000 para alunos de mestrado e doutorado
+CREATE OR replace TRIGGER insere_bolsas 
+  BEFORE INSERT OR UPDATE OF valor_bolsa ON aluno 
+  FOR EACH ROW 
+  WHEN (( Lower(OLD.nivel) = 'graduação' 
+          AND NEW.valor_bolsa < 430 ) 
+         OR ( Lower(OLD.nivel) IN ( 'mestrado', 'doutorado' ) 
+              AND NEW.valor_bolsa < 1000 )) 
+BEGIN 
+    Raise_application_error(-20000, 'Valor de bolsa inválido'); 
+
+    RETURN; 
+END; 
+
