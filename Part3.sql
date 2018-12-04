@@ -1,32 +1,41 @@
-/* Questao 1 */
-CREATE OR REPLACE VIEW vwProdutos
+-- 1. Crie uma view que lista as publicações geradas em projetos que iniciaram
+-- em 2013.
+CREATE OR replace VIEW vwprodutos
 AS
-    SELECT p.codigo, p.titulo, p.veiculo
-    FROM publicacao p
-    WHERE p.cod_projeto IN (SELECT codigo
-    FROM projeto
-    WHERE dt_inicio > '12/01/2012');
+  SELECT p.codigo,
+         p.titulo,
+         p.veiculo
+  FROM   PUBLICACAO p
+  WHERE  p.cod_projeto IN (SELECT codigo
+                           FROM   PROJETO
+                           WHERE  dt_inicio > '12/01/2012');                      
 
-/* Questão 2 */
-
-SELECT Count(*),
+-- 2. Liste a quantidade de alunos de mestrado que possuem bolsa, por Linha de
+-- Pesquisa.
+SELECT COUNT(*),
        cod_cnpq,
        cod_sub_cnpq
-FROM   aluno
-WHERE  Lower(aluno.nivel) = 'mestrado'
+FROM   ALUNO
+WHERE  LOWER(ALUNO.nivel) = 'mestrado'
 GROUP  BY cod_cnpq,
-          cod_sub_cnpq; 
+          cod_sub_cnpq;
 
-/* Questao 3 */
-CREATE OR REPLACE VIEW vwQuest3
+-- 3. Crie uma view que lista os laboratórios que executam projetos iniciados
+-- em 2005.
+CREATE OR replace VIEW vwquest3
 AS
-    SELECT l.codigo, l.nome , l.local
-    FROM laboratorio l
-    WHERE l.codigo IN (SELECT cod_laboratorio
-    FROM laboratorio_projeto
-    WHERE cod_projeto IN (SELECT p.codigo
-    FROM projeto p
-    WHERE EXTRACT(YEAR FROM p.dt_inicio) = 2005));
+  SELECT l.codigo,
+         l.nome,
+         l.local
+  FROM   LABORATORIO l
+  WHERE  l.codigo IN (SELECT cod_laboratorio
+                      FROM   LABORATORIO_PROJETO
+                      WHERE  cod_projeto IN (SELECT p.codigo
+                                             FROM   PROJETO p
+                                             WHERE  EXTRACT(
+                                            year FROM p.dt_inicio)
+                                                    = 2005
+                                            ));
 
 -- 4. Quais os alunos que de doutorado nasceram depois de 1990 e têm alguma
 -- publicação no ano de 2012?
