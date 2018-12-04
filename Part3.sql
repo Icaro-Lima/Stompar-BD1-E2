@@ -2,13 +2,11 @@
 -- em 2013.
 CREATE OR replace VIEW vw_pub_projs_2013
 AS
-  SELECT p.codigo,
-         p.titulo,
-         p.veiculo
-  FROM   PUBLICACAO p
-  WHERE  p.cod_projeto IN (SELECT codigo
-                           FROM   PROJETO
-                           WHERE  dt_inicio > '12/01/2012');                      
+  SELECT pub.*
+  FROM   PUBLICACAO pub,
+         PROJETO proj
+  WHERE  pub.cod_projeto = proj.codigo
+         AND EXTRACT (year FROM proj.dt_inicio) = 2013;
 
 
 -- 2. Liste a quantidade de alunos de mestrado que possuem bolsa, por Linha de
@@ -26,18 +24,13 @@ GROUP  BY cod_cnpq,
 -- em 2005.
 CREATE OR replace VIEW vw_lab_exec_proj_2005
 AS
-  SELECT l.codigo,
-         l.nome,
-         l.local
-  FROM   LABORATORIO l
-  WHERE  l.codigo IN (SELECT cod_laboratorio
-                      FROM   LABORATORIO_PROJETO
-                      WHERE  cod_projeto IN (SELECT p.codigo
-                                             FROM   PROJETO p
-                                             WHERE  EXTRACT(
-                                            year FROM p.dt_inicio)
-                                                    = 2005
-                                            ));
+  SELECT lab.*
+  FROM   LABORATORIO lab,
+         PROJETO proj,
+         LABORATORIO_PROJETO lab_proj
+  WHERE  lab.codigo = lab_proj.cod_laboratorio
+         AND proj.codigo = lab_proj.cod_projeto
+         AND EXTRACT (year FROM proj.dt_inicio) = 2005;
 
 
 -- 4. Quais os alunos que de doutorado nasceram depois de 1990 e têm alguma
