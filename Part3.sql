@@ -77,67 +77,66 @@ WHERE  ALUNO.valor_bolsa > 2000
 -- 8. Liste os departamentos que são gerenciados por professores que nasceram em
 -- 1975 e não têm nenhum aluno de doutorado como orientando.
 SELECT dept.*
-FROM   departamento dept,
-       professor prof
+FROM   DEPARTAMENTO dept,
+       PROFESSOR prof
 WHERE  dept.mat_professor = prof.matricula
-       AND Extract (year FROM prof.dt_nasc) = 1975
+       AND EXTRACT (year FROM prof.dt_nasc) = 1975
        AND prof.matricula NOT IN (SELECT mat_professor
-                                  FROM   aluno
-                                  WHERE  Lower(nivel) = 'doutorado');
+                                  FROM   ALUNO
+                                  WHERE  LOWER(nivel) = 'doutorado');
 
 -- 9. Liste a quantidade de alunos de graduação financiados por agência
 -- financiadora, exiba todos os dados da agência, inclua as agências que não
 -- financiam nenhum aluno graduação.
-SELECT (SELECT Count(*)
-        FROM   aluno aluno
-        WHERE  aluno.cod_agencia = agencia.codigo
-               AND Lower(aluno.nivel) = 'graduação') AS alunos_financiados,
+SELECT (SELECT COUNT(*)
+        FROM   ALUNO aluno
+        WHERE  ALUNO.cod_agencia = agencia.codigo
+               AND LOWER(ALUNO.nivel) = 'graduação') AS alunos_financiados,
        agencia.*
-FROM   agencia_financiadora agencia;
+FROM   AGENCIA_FINANCIADORA agencia;
 
 -- 10. Liste os departamentos por tamanho do orçamento dos projetos coordenados
 -- pelos seus professores.
-SELECT (SELECT Sum(proj.orcamento)
-        FROM   projeto proj,
-               professor prof
+SELECT (SELECT SUM(proj.orcamento)
+        FROM   PROJETO proj,
+               PROFESSOR prof
         WHERE  proj.mat_professor = prof.matricula
                AND prof.matricula IN (SELECT mat_professor
-                                      FROM   departamento
+                                      FROM   DEPARTAMENTO
                                       WHERE  codigo = dept.codigo)),
        dept.*
-FROM   departamento dept;
-			  
-/* Questão 11 */
-
+FROM   DEPARTAMENTO dept;
+ 
+-- 11.Quais os alunos de doutorado que participaram de alguma publicação em
+-- 2011?
 SELECT *
-FROM   aluno
-WHERE  aluno.matricula IN (SELECT aluno_publicacao.mat_aluno
-                           FROM   aluno_publicacao
-                           WHERE  aluno_publicacao.cod_publicacao IN (SELECT
+FROM   ALUNO
+WHERE  ALUNO.matricula IN (SELECT ALUNO_PUBLICACAO.mat_aluno
+                           FROM   ALUNO_PUBLICACAO
+                           WHERE  ALUNO_PUBLICACAO.cod_publicacao IN (SELECT
                                   codigo
                                                                       FROM
-                                  publicacao
+                                  PUBLICACAO
                                                                       WHERE
-                                  publicacao.ano = 2011))
-       AND Lower(aluno.nivel) = 'doutorado'; 
+                                  PUBLICACAO.ano = 2011))
+       AND LOWER(ALUNO.nivel) = 'doutorado';
 
+-- 12.Liste a quantidade de publicações no ano de 2005 que não contam com a
+-- participação nenhum aluno de mestrado.
+SELECT COUNT(*)
+FROM   PUBLICACAO
+WHERE  PUBLICACAO.ano = 2005
+       AND PUBLICACAO.codigo IN (SELECT cod_publicacao
+                                 FROM   ALUNO_PUBLICACAO ap
+                                 WHERE  ap.mat_aluno IN (SELECT matricula
+                                                         FROM   ALUNO
+                                                         WHERE
+                                        LOWER(ALUNO.nivel) <> 'mestrado'));
 
-	   
--- 12.Liste a quantidade de publicações no ano de 2005 que não contam com a participação
--- nenhum aluno de mestrado.
-SELECT Count(*)
-FROM publicacao
-WHERE publicacao.ano = 2005 AND publicacao.codigo IN (SELECT cod_publicacao 
-													  FROM aluno_publicacao ap 
-													  WHERE ap.mat_aluno IN (SELECT matricula 
-																			 FROM aluno 
-																			 WHERE LOWER(aluno.NIVEL) <> 'mestrado'));
-
-/* Questão 13 */
-
+-- 13.Qual a soma dos orçamentos dos projetos que encerraram em 2009.
 SELECT SUM(orcamento)
-FROM   projeto
-WHERE  dt_fim BETWEEN '01/01/2009' AND '12/31/2009'; 
+FROM   PROJETO
+WHERE  EXTRACT (year FROM dt_fim) = 2009;
 
 /* Questão 14 */
 
